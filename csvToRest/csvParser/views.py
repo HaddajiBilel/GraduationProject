@@ -36,7 +36,7 @@ class GetStockList(APIView):
         directories=[]
         jsonResult=[]
         i=0
-        for dirpath, dirname, filename in os.walk("./csvParser/csvFiles"):
+        for dirpath, dirname, filename in os.walk("./data"):
             directories.append(dirname)
         for directory in directories[0]:
             i=i+1
@@ -46,17 +46,17 @@ class GetStockList(APIView):
 
 class GetData(APIView):
     def get(self, request, symbol, size=None):
-        csvFilesPath="./csvParser/csvFiles/" + symbol + "/"
+        csvFilesPath="./data/" + symbol + "/"
         return Response(getJsonFromCSV(csvPath=csvFilesPath ,csvSymbol=symbol, size=size))
 
 class UpdateCreateData(APIView):
     def get(self, request, symbol):
-        csvFilesPath="./csvParser/csvFiles/" + symbol + "/"
+        csvFilesPath="../data/" + symbol + "/"
         updateCSV(csvPath=csvFilesPath ,csvSymbol=symbol)
         addIndicators(path=csvFilesPath, symbol=symbol)
         return Response(symbol + " data updated successfully and Indicators created")
 
 class GetIndicators(APIView):
     def get(self, request, symbol, size=None):
-        csvFilesPath="./csvParser/csvFiles/" + symbol + "/"
+        csvFilesPath="./data/" + symbol + "/"
         return Response(getJsonFromCSV(csvPath=csvFilesPath ,csvSymbol=symbol+"Indicators", size=size))
