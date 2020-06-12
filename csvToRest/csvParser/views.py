@@ -31,6 +31,18 @@ def updateCSV(csvPath, csvSymbol):
     open(csvPath + csvSymbol + '.csv', 'wb').write(r.content)
 
 
+class GetStockList(APIView):
+    def get(self, request):
+        directories=[]
+        jsonResult=[]
+        i=0
+        for dirpath, dirname, filename in os.walk("./csvParser/csvFiles"):
+            directories.append(dirname)
+        for directory in directories[0]:
+            i=i+1
+            jsonResult.append({"%d" %i :directory})
+        return Response(jsonResult)
+
 
 class GetData(APIView):
     def get(self, request, symbol, size=None):
