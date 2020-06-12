@@ -51,7 +51,7 @@ class GetData(APIView):
 
 class UpdateCreateData(APIView):
     def get(self, request, symbol):
-        csvFilesPath="../data/" + symbol + "/"
+        csvFilesPath="./data/" + symbol + "/"
         updateCSV(csvPath=csvFilesPath ,csvSymbol=symbol)
         addIndicators(path=csvFilesPath, symbol=symbol)
         return Response(symbol + " data updated successfully and Indicators created")
