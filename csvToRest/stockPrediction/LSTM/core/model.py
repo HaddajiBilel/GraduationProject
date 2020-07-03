@@ -71,7 +71,7 @@ class Model():
 		print('[Model] Training Started')
 		print('[Model] %s epochs, %s batch size, %s batches per epoch' % (epochs, batch_size, steps_per_epoch))
 		
-		save_fname = os.path.join(save_dir, '%s.h5' % symbol)
+		save_fname = os.path.join(save_dir, '%s-%s.h5' % (symbol, (dt.datetime.now().strftime('%d%m%Y-%H%M%S') )))
 		callbacks = [
 			ModelCheckpoint(filepath=save_fname, monitor='loss', save_best_only=True)
 		]

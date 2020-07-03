@@ -35,13 +35,22 @@ class GetStockList(APIView):
     def get(self, request):
         directories=[]
         jsonResult=[]
-        i=0
         for dirpath, dirname, filename in os.walk("./data"):
             directories.append(dirname)
         for directory in directories[0]:
-            i=i+1
-            jsonResult.append({"%d" %i :directory})
+            
+            jsonResult.append({"symbol" :directory})
         return Response(jsonResult)
+
+class getModels(APIView):
+    
+    def get(self, request, symbol):
+        Models=[]
+        files= os.listdir("./data/" + symbol)
+        for file in files:
+            if (file.endswith('.h5')):
+                Models.append({"model" :file})
+        return Response(Models)        
 
 
 class GetData(APIView):
@@ -54,7 +63,7 @@ class UpdateCreateData(APIView):
         csvFilesPath="./data/" + symbol + "/"
         updateCSV(csvPath=csvFilesPath ,csvSymbol=symbol)
         addIndicators(path=csvFilesPath, symbol=symbol)
-        return Response(symbol + " data updated successfully and Indicators created")
+        return Response({symbol: "Updated successfully and Indicators created"})
 
 class GetIndicators(APIView):
     def get(self, request, symbol, size=None):

@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import GetStockList, GetData, UpdateCreateData, GetIndicators
+from .views import GetStockList, GetData, UpdateCreateData, GetIndicators, getModels
 
 urlpatterns = [
     path('stocks/', GetStockList.as_view()),
+    path('models/<slug:symbol>/', getModels.as_view()),
     path('<slug:symbol>/', GetData.as_view()),
     path('<slug:symbol>/<int:size>/', GetData.as_view()),
     path('update/<slug:symbol>/', UpdateCreateData.as_view()),

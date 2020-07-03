@@ -20,7 +20,7 @@ class lstmModel():
 
 
     def loadModel(self):
-        self.model.load_model(filepath="./saved_models/"+self.name+".h5")
+        self.model.load_model(filepath="./data/"+self.name+"/AAPL-29062020-194918.h5")
     
 
     def predict(self, model):
@@ -75,7 +75,6 @@ class lstmModel():
 
     def build(self):
 
-        if not os.path.exists(self.configs['model']['save_dir']): os.makedirs(self.configs['model']['save_dir'])
 
         self.model.build_model(self.configs)
         
@@ -86,14 +85,14 @@ class lstmModel():
             epochs=self.configs['training']['epochs'],
             batch_size=self.configs['training']['batch_size'],
             steps_per_epoch=steps_per_epoch,
-            save_dir=self.configs['model']['save_dir'],
+            save_dir=os.path.join(os.getcwd(), 'data', self.name ),
             symbol=self.name
         )
 
         return self.model
     
 
-
+'''
     def plot_results(self, predicted_data, true_data):
         fig = plt.figure(facecolor='white')
         ax = fig.add_subplot(111)
@@ -115,5 +114,5 @@ class lstmModel():
         plt.show()
 
 
-
+'''
 
