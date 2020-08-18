@@ -19,8 +19,8 @@ class lstmModel():
         self.model = Model()
 
 
-    def loadModel(self):
-        self.model.load_model(filepath="./data/"+self.name+"/AAPL-29062020-194918.h5")
+    def loadModel(self, path):
+        self.model.load_model(filepath="./data/"+self.name+"/"+ path +".h5")
     
 
     def predict(self, model):
@@ -37,14 +37,14 @@ class lstmModel():
         print(flat_list)
         jsonPrediction=[]
         i=0
-        for date in self.x_test.tolist():
+        for date in self.x_test:
             try:
                 jsonPrediction.append({"%s" %date :flat_list[i]})
                 i=i+1
             except:
                 pass
             
-        return flat_list
+        return self.predictions
 
 
 
@@ -91,17 +91,6 @@ class lstmModel():
 
         return self.model
     
-
-'''
-    def plot_results(self, predicted_data, true_data):
-        fig = plt.figure(facecolor='white')
-        ax = fig.add_subplot(111)
-        ax.plot(true_data, label='True Data')
-        plt.plot(predicted_data, label='Prediction')
-        plt.legend()
-        plt.show()
-
-
     def plot_results_multiple(self, predicted_data, true_data, prediction_len):
         fig = plt.figure(facecolor='white')
         ax = fig.add_subplot(111)
@@ -113,6 +102,16 @@ class lstmModel():
             plt.legend()
         plt.show()
 
+'''
+    def plot_results(self, predicted_data, true_data):
+        fig = plt.figure(facecolor='white')
+        ax = fig.add_subplot(111)
+        ax.plot(true_data, label='True Data')
+        plt.plot(predicted_data, label='Prediction')
+        plt.legend()
+        plt.show()
+
 
 '''
+
 

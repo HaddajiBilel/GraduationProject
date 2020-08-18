@@ -17,8 +17,6 @@ class DataLoader():
     def get_test_data(self, seq_len, normalise):
         '''
         Create x, y test data windows
-        Warning: batch method, not generative, make sure you have enough memory to
-        load data, otherwise reduce size of the training split.
         '''
         data_windows = []
         for i in range(self.len_test - seq_len):

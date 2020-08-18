@@ -26,12 +26,14 @@ def updateJsonFile(Data):
 
 
 class getPrediction(APIView):
-    def get(self, request, symbol):
-        lstm=lstmModel(symbol)
-        lstm.generateData()
-        lstm.loadModel()
-        return Response({ symbol : lstm.predict(lstm.model)})
-
+    def get(self, request, symbol, model):
+        try:
+            lstm=lstmModel(symbol)
+            lstm.generateData()
+            lstm.loadModel(model)
+            return Response({ symbol : lstm.predict(lstm.model)})
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class trainModel(APIView):
     def get(self, request, symbol):

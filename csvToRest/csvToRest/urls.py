@@ -19,5 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('csvParser.urls')),
-    path('', include('stockPrediction.urls'))
+    path('', include('stockPrediction.urls')),
+    path('nlp/', include('NLP.urls'))
 ]
